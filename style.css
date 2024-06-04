@@ -1,0 +1,66 @@
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/fundo.jpg');
+    background-size: cover;
+}
+
+.banner {
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+.destaques{
+    color: #fff;
+    font-family: Arial, sans-serif;
+    
+}
+.destaque {
+    margin-top: 20px;
+
+}
+
+/* Estilos para a navegação do Bootstrap */
+.navbar {
+    background-color: #020202 !important; /* alterando a cor de fundo da barra de navegação */
+    color: #fff !important;
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important; /* alterando a cor dos links na barra de navegação */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ccc !important; /* alterando a cor dos links ao passar o mouse */
+}
+
+.form-control {
+    margin-right: 5px; /* ajustando a margem do campo de pesquisa */
+}
+
+
+.bonecoLogin {
+    width: 70px;
+    position: absolute;
+    top: 0;  
+    left: 0;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.container-fluid{
+    margin: auto;
+}
+.containerLogin {
+    position: relative;
+    width: 80px; 
+    height: 100px;
+}
+.BV{
+    font-family:courier,arial,helvetica;
+}
+.BV2{
+    font-family:courier,arial,helvetica;
+}

@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD </title>
+    <link rel="stylesheet" href="css/crud.css">
+</head>
+<body>
+    <h1>CRUD</h1>
+
+    <!-- Formulário para adicionar um novo item ou editar um existente -->
+    <form id="itemForm">
+        <input type="hidden" id="itemId" name="itemId">
+        <label for="itemName">Nome do Item:</label>
+        <input type="text" id="itemName" name="itemName">
+        <button type="submit">Salvar</button>
+        <button type="button" id="cancelEditButton">Cancelar</button>
+    </form>
+
+    <!-- Lista de itens -->
+    <ul id="itemList"></ul>
+    <script src="js/crud.js"></script>
+</body>
+</html>

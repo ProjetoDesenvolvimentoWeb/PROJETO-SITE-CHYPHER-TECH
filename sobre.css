@@ -1,0 +1,32 @@
+/* Estilos específicos da página "Sobre" */
+body{
+    background-image: url('../images/fundo.jpg');
+    background-size: cover;
+}
+.sobre {
+    padding: 20px;
+    margin-left: 400px;
+    margin-right: 400px;
+    text-align: left;
+    color: #fff;
+}
+
+.sobre h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.sobre p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #fff;
+}
+.container-fluid{
+    background-color: rgb(0, 0, 0);
+ }
+ .nav-link{
+    color: #fff!important;
+}

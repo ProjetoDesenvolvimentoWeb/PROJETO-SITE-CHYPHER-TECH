@@ -1,0 +1,56 @@
+body {
+    background: linear-gradient(135deg, #666161, #ffffff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.cartao {
+    background: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #626464;
+    color: white;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-radius: 0.25rem 0.25rem 0 0;
+    color: #2c3e50;
+}
+
+.titulo-cartao {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.form-label {
+    color: #2c3e50;
+}
+
+.btn-primario {
+    background: #4c504f;
+    border: none;
+}
+
+.btn-primario:hover {
+    background: #4d504f;
+}
+
+.text-center a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}

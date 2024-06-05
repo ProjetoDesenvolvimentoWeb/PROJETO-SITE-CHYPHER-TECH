@@ -34,7 +34,7 @@ switch($request_method) {
 
 function get_produtos() {
     global $mysqli;
-    $query = "SELECT * FROM produtos ORDER BY id DESC";
+    $query = "SELECT * FROM produtos ORDER BY id_produto DESC";
     $result = mysqli_query($mysqli, $query);
     $produtos = array();
     while($row = mysqli_fetch_assoc($result)) {
@@ -46,9 +46,9 @@ function get_produtos() {
 function add_produtos() {
     global $mysqli;
     $name = $data["nome"];
-    $email = $data["preço"];
-    $senha = $senha["descrição"];
-    $query = "INSERT INTO produtos(name, preço,descrição) VALUES('$name', '$preço', '$descrição')";
+    $preco = $data["preco"];
+    $descricao = $data["descricao"];
+    $query = "INSERT INTO produtos(name, preco,descricao) VALUES('$name', '$preco', '$descricao')";
     if (mysqli_query($mysqli, $query)) {
         $response = array('status' => 1, 'status_message' => 'produtos Added Successfully.');
     } else {
@@ -60,11 +60,11 @@ function add_produtos() {
 function update_produtos() {
     global $mysqli;
     $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data["id"];
+    $id_produto = $data["id_produto"];
     $name = $data["name"];
-    $senha = $data["preço"];
-    $email = $data["descrição"];
-    $query = "UPDATE produtos SET name='$name', preço='$preço', descrição='$descrição' WHERE id=$id";
+    $preco = $data["preco"];
+    $descricao = $data["descricao"];
+    $query = "UPDATE produtos SET name='$name', preco='$preco', descricao='$descricao' WHERE id_produto=$id_produto";
     if (mysqli_query($mysqli, $query)) {
         $response = array('status' => 1, 'status_message' => 'produtos Updated Successfully.');
     } else {
@@ -75,8 +75,8 @@ function update_produtos() {
 
 function delete_produtos() {
     global $mysqli;
-    $id = intval($_GET["id"]);
-    $query = "DELETE FROM produtos WHERE id=$id";
+    $id_produto = intval($_GET["id_produto"]);
+    $query = "DELETE FROM produtos WHERE id_ptoduto=$id_produto";
     if (mysqli_query($mysqli, $query)) {
         $response = array('status' => 1, 'status_message' => 'produtos Deleted Successfully.');
     } else {

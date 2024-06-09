@@ -1,108 +1,74 @@
-
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('productForm');
-    const productList = document.getElementById('productList');
-    const cartList = document.getElementById('cartList');
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        const id = formData.get('id');
-
-        const method = id ? 'PUT' : 'POST';
-        const url = id ? `api.php?id=${id}` : 'api.php';
-
-        fetch(url, {
-            method: method,
-            body: JSON.stringify(Object.fromEntries(formData)),
+document.getElementById('formularioCadastro').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Evita o envio do formulário
+    
+    // Pega os valores dos campos de entrada
+    const usuario = document.getElementById('usuarioCadastro').value;
+    const email = document.getElementById('emailCadastro').value;
+    const senha = document.getElementById('senhaCadastro').value;
+    
+    const userData = {
+        usuario: usuario,
+        email: email,
+        senha: senha
+    };
+    
+    try {
+        const response = await fetch('http://localhost/Cypher_Tech/src/php/apiUser.php', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.status_message);
-            form.reset();
-            loadProducts();
-        })
-        .catch(error => console.error('Error:', error));
+            },
+            body: JSON.stringify(userData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.status === 1) {
+            alert('Usuário cadastrado com sucesso!');
+            // Limpar os campos após o cadastro bem-sucedido, se necessário
+            document.getElementById('formularioCadastro').reset();
+        } else {
+            alert('Falha ao cadastrar usuário: ' + result.status_message);
+        }
+    } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+        alert('Erro ao cadastrar usuário: ' + error.message);
+    }
+});
+
+
+document.getElementById('formularioLogin').addEventListener('submit', async function(event) {
+event.preventDefault(); // Evita o envio do formulário
+
+// Pega os valores dos campos de entrada
+const usuario = document.getElementById('usuarioLogin').value;
+const senha = document.getElementById('senhaLogin').value;
+
+const loginData = {
+    usuario: usuario,
+    senha: senha
+};
+
+try {
+    const response = await fetch('http://localhost/Cypher_Tech/src/php/apiLogin.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
     });
 
-    productList.addEventListener('click', function(event) {
-        if (event.target.classList.contains('edit')) {
-            const product = JSON.parse(event.target.dataset.product);
-            document.getElementById('productId').value = product.id;
-            document.getElementById('name').value = product.name;
-            document.getElementById('price').value = product.price;
-            document.getElementById('description').value = product.description;
-        }
+    const result = await response.json();
 
-        if (event.target.classList.contains('delete')) {
-            const id = event.target.dataset.id;
-            if (confirm('Are you sure you want to delete this product?')) {
-                fetch(`api.php?id=${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.status_message);
-                    loadProducts();
-                })
-                .catch(error => console.error('Error:', error));
-            }
-        }
-
-        if (event.target.classList.contains('add-to-cart')) {
-            const product = JSON.parse(event.target.dataset.product);
-            fetch('cart.php', {
-                method: 'POST',
-                body: JSON.stringify(product),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.status_message);
-                loadCart();
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    });
-
-    function loadProducts() {
-        fetch('api.php')
-            .then(response => response.json())
-            .then(data => {
-                productList.innerHTML = data.map(product => `
-                    <div>
-                        <h3>${product.name}</h3>
-                        <p>${product.price}</p>
-                        <p>${product.description}</p>
-                        <button class="edit" data-product='${JSON.stringify(product)}'>Edit</button>
-                        <button class="delete" data-id='${product.id}'>Delete</button>
-                        <button class="add-to-cart" data-product='${JSON.stringify(product)}'>Add to Cart</button>
-                    </div>
-                `).join('');
-            })
-            .catch(error => console.error('Error:', error));
+    if (response.ok && result.status === 1) {
+        alert('Login bem-sucedido!');
+        // Redirecionar para a página produtos.html após o login bem-sucedido
+        window.location.href = 'produtos.html';
+    } else {
+        alert('Falha no login: ' + result.status_message);
     }
-
-    function loadCart() {
-        fetch('cart.php')
-            .then(response => response.json())
-            .then(data => {
-                cartList.innerHTML = '<h2>Cart</h2>' + data.map(item => `
-                    <div>
-                        <h3>${item.name}</h3>
-                        <p>${item.price}</p>
-                        <p>${item.description}</p>
-                    </div>
-                `).join('');
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    loadProducts();
-    loadCart();
+} catch (error) {
+    console.error('Erro ao fazer login:', error);
+    alert('Erro ao fazer login: ' + error.message);
+}
 });

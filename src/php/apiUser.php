@@ -12,77 +12,81 @@ $request_method = $_SERVER["REQUEST_METHOD"];
 switch($request_method) {
     case 'GET':
         // Handle GET request
-        get_clientes();
+        get_user();
         break;
     case 'POST':
         // Handle POST request
-        add_clientes();
+        add_user();
         break;
     case 'PUT':
         // Handle PUT request
-        update_clientes();
+        update_user();
         break;
     case 'DELETE':
         // Handle DELETE request
-        delete_clientes();
+        delete_user();
         break;
-    default:
-        // Invalid request method
-        header("HTTP/1.0 405 Method Not Allowed");
-        break;
-}
+        case 'OPTIONS':
+            // Para pré-voo CORS
+            header("HTTP/1.1 200 OK");
+            break;
+        default:
+            header("HTTP/1.0 405 Method Not Allowed");
+            break;
+    }
 
-function get_clientes() {
+function get_user() {
     global $mysqli;
-    $query = "SELECT * FROM clientes ORDER BY id DESC";
+    $query = "SELECT * FROM user ORDER BY id DESC";
     $result = mysqli_query($mysqli, $query);
-    $clientes = array();
+    $user = array();
     while($row = mysqli_fetch_assoc($result)) {
-        $clientes[] = $row;
+        $user[] = $row;
     }
-    echo json_encode($clientes);
+    echo json_encode($user);
 }
 
-function add_clientes() {
+function add_user() {
     global $mysqli;
     $data = json_decode(file_get_contents("php://input"), true);
-    $name = $data["name"];
+    $usuario = $data["usuario"];
     $email = $data["email"];
-    $senha = $senha["senha"];
-    $query = "INSERT INTO clientes(name, email,senha) VALUES('$name', '$email', '$senha')";
-    if (mysqli_query($mysqli, $query)) {
-        $response = array('status' => 1, 'status_message' => 'clientes Added Successfully.');
-    } else {
-        $response = array('status' => 0, 'status_message' => 'clientes Addition Failed.');
-    }
-    echo json_encode($response);
-}
-
-function update_clientes() {
-    global $mysqli;
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data["id"];
-    $name = $data["name"];
     $senha = $data["senha"];
-    $email = $data["email"];
-    $query = "UPDATE clientes SET name='$name', senha='$senha', email='$email' WHERE id=$id";
+    $query = "INSERT INTO user(usuario, email,senha) VALUES('$usuario', '$email', '$senha')";
     if (mysqli_query($mysqli, $query)) {
-        $response = array('status' => 1, 'status_message' => 'clientes Updated Successfully.');
+        $response = array('status' => 1, 'status_message' => 'user Added Successfully.');
     } else {
-        $response = array('status' => 0, 'status_message' => 'clientes Updation Failed.');
+        $response = array('status' => 0, 'status_message' => 'user Addition Failed.');
     }
     echo json_encode($response);
 }
 
-function delete_clientes() {
+function update_user() {
+    global $mysqli;
+    $data = json_decode(file_get_contents("php://input"), true);
+    $email = $data["email"];
+    $usuario = $data["usuario"];
+    $senha = $data["senha"];
+    $query = "UPDATE user SET usuario='$usuario', senha='$senha' WHERE email='$email'";
+    if (mysqli_query($mysqli, $query)) {
+        $response = array('status' => 1, 'status_message' => 'User updated successfully.');
+    } else {
+        $response = array('status' => 0, 'status_message' => 'User updation failed.');
+    }
+    echo json_encode($response);
+}
+
+
+function delete_user() {
     global $mysqli;
     $id = intval($_GET["id"]);
-    $query = "DELETE FROM clientes WHERE id=$id";
+    $query = "DELETE FROM user WHERE id=$id";
     if (mysqli_query($mysqli, $query)) {
-        $response = array('status' => 1, 'status_message' => 'clientes Deleted Successfully.');
+        $response = array('status' => 1, 'status_message' => 'user Deleted Successfully.');
     } else {
-        $response = array('status' => 0, 'status_message' => 'clientes Deletion Failed.');
+        $response = array('status' => 0, 'status_message' => 'user Deletion Failed.');
     }
     echo json_encode($response);
 }
+
 ?>

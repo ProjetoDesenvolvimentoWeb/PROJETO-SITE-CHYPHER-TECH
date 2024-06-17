@@ -1,4 +1,27 @@
- // Código Tainara Função para remover um produto
+ 
+const ul = document.querySelector("ul");
+const random = (min, max) => Math.random() * (max - min) + min;
+const randomColors = ["#8400ff", "#2bff00", "#eaff00"];
+
+for (let i = 0; i < 50; i++) {
+    const li = document.createElement("li");
+    const size = Math.floor(random(50, 120));
+    const position = random(1, 94);
+    const delay = random(1, 5);
+    const duration = random(10, 40);
+
+    li.style.width = `${size}px`;
+    li.style.height = `${size}px`;
+    li.style.background = randomColors[Math.floor(random(0, 3))];
+    li.style.left = `${position}%`;
+    li.style.animationDelay = `${delay}s`;
+    li.style.animationDuration = `${duration}s`;
+    li.style.animationTimingFunction = `cubic-bezier(${Math.random()}, ${Math.random()}, ${Math.random()}, ${Math.random()})`;
+
+    ul.appendChild(li);
+}
+
+ //Função para remover um produto
  function removerProduto(id_produto) {
     fetch(`http://localhost/Cypher_Tech/src/php/apiProdutos.php?id_produto=${id_produto}`, {
         method: 'DELETE',
@@ -11,14 +34,13 @@
     })
     .then(data => {
         console.log('Produto deletado com sucesso:', data);
-        // Atualizar a lista de produtos após a exclusão
         carregarProdutos(); // Chama a função para recarregar os produtos após a exclusão
     })
     .catch(error => console.error('Erro:', error));
 }
 
 
-    // Código Tainara Função para carregar os produtos
+    //Função para carregar os produtos
     function carregarProdutos() {
         fetch('http://localhost/Cypher_Tech/src/php/apiProdutos.php')
             .then(response => response.json())
@@ -27,7 +49,7 @@
                 produtosLista.innerHTML = '';
                 data.forEach(produto => {
                     const preco = produto.preco !== undefined ? produto.preco : 0;
-                    const quantidade = produto.quantidade !== undefined ? produto.quantidade : 0;
+                    const quantidade = produto.quantidade !== undefined ? produto.quantidade : 1;
                     const total = preco * quantidade;
 
                     const row = document.createElement('tr');
@@ -45,7 +67,6 @@
 
     document.addEventListener('DOMContentLoaded', carregarProdutos);
     
-//Código do PARA onde ocorre a soma do total dos produtos 
 document.addEventListener("DOMContentLoaded", () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 

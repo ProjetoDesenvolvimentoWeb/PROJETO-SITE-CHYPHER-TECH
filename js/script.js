@@ -1,5 +1,29 @@
+
+const ul = document.querySelector("ul");
+const random = (min, max) => Math.random() * (max - min) + min;
+const randomColors = ["#8400ff", "#2bff00", "#eaff00"];
+
+for (let i = 0; i < 50; i++) {
+    const li = document.createElement("li");
+    const size = Math.floor(random(50, 120));
+    const position = random(1, 94);
+    const delay = random(1, 5);
+    const duration = random(10, 40);
+
+    li.style.width = `${size}px`;
+    li.style.height = `${size}px`;
+    li.style.background = randomColors[Math.floor(random(0, 3))];
+    li.style.left = `${position}%`;
+    li.style.animationDelay = `${delay}s`;
+    li.style.animationDuration = `${duration}s`;
+    li.style.animationTimingFunction = `cubic-bezier(${Math.random()}, ${Math.random()}, ${Math.random()}, ${Math.random()})`;
+
+    ul.appendChild(li);
+}
+
+
 document.getElementById('formularioCadastro').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Evita o envio do formulário
+    event.preventDefault();
     
     // Pega os valores dos campos de entrada
     const usuario = document.getElementById('usuarioCadastro').value;
@@ -25,7 +49,6 @@ document.getElementById('formularioCadastro').addEventListener('submit', async f
         
         if (result.status === 1) {
             alert('Usuário cadastrado com sucesso!');
-            // Limpar os campos após o cadastro bem-sucedido, se necessário
             document.getElementById('formularioCadastro').reset();
         } else {
             alert('Falha ao cadastrar usuário: ' + result.status_message);
@@ -38,9 +61,9 @@ document.getElementById('formularioCadastro').addEventListener('submit', async f
 
 
 document.getElementById('formularioLogin').addEventListener('submit', async function(event) {
-event.preventDefault(); // Evita o envio do formulário
+event.preventDefault(); 
 
-// Pega os valores dos campos de entrada
+// Validação Pega os valores dos campos de entrada
 const usuario = document.getElementById('usuarioLogin').value;
 const senha = document.getElementById('senhaLogin').value;
 
@@ -65,7 +88,7 @@ try {
         // Redirecionar para a página produtos.html após o login bem-sucedido
         window.location.href = 'produtos.html';
     } else {
-        alert('Falha no login: ' + result.status_message);
+        alert('Falha no login usuário ou senha incorretos');
     }
 } catch (error) {
     console.error('Erro ao fazer login:', error);

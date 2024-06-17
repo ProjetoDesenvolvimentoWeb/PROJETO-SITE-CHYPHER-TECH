@@ -52,14 +52,33 @@ function add_user() {
     $usuario = $data["usuario"];
     $email = $data["email"];
     $senha = $data["senha"];
-    $query = "INSERT INTO user(usuario, email,senha) VALUES('$usuario', '$email', '$senha')";
-    if (mysqli_query($mysqli, $query)) {
-        $response = array('status' => 1, 'status_message' => 'user Added Successfully.');
+
+    // Verificar se o email já está cadastrado
+    $check_query = "SELECT * FROM user WHERE email = ?";
+    $stmt = $mysqli->prepare($check_query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Email já cadastrado, retornar mensagem de erro
+        $response = array('status' => 0, 'status_message' => 'Email já está sendo usado.');
     } else {
-        $response = array('status' => 0, 'status_message' => 'user Addition Failed.');
+        // Email não cadastrado, realizar a inserção
+        $insert_query = "INSERT INTO user(usuario, email, senha) VALUES(?, ?, ?)";
+        $stmt = $mysqli->prepare($insert_query);
+        $stmt->bind_param("sss", $usuario, $email, $senha);
+
+        if ($stmt->execute()) {
+            $response = array('status' => 1, 'status_message' => 'Usuário adicionado com sucesso.');
+        } else {
+            $response = array('status' => 0, 'status_message' => 'Falha ao adicionar usuário.');
+        }
     }
+
     echo json_encode($response);
 }
+
 
 function update_user() {
     global $mysqli;
@@ -67,7 +86,7 @@ function update_user() {
     $email = $data["email"];
     $usuario = $data["usuario"];
     $senha = $data["senha"];
-    $query = "UPDATE user SET usuario='$usuario', senha='$senha' WHERE email='$email'";
+    $query = "UPDATE user SET senha='$senha' WHERE email='$email'";
     if (mysqli_query($mysqli, $query)) {
         $response = array('status' => 1, 'status_message' => 'User updated successfully.');
     } else {

@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="container">
+    <div class="animated-background">
+        <ul></ul>
+    </div>
+        <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="cartao">
@@ -16,7 +19,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" id="abasLoginCadastro" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="aba-login" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Login</button>
+                                <button class="nav-link active" id="aba-login" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true" >Login</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="aba-cadastro" data-bs-toggle="tab" data-bs-target="#cadastro" type="button" role="tab" aria-controls="cadastro" aria-selected="false">Cadastro</button>
@@ -30,11 +33,11 @@
                                 <form id="formularioLogin">
                                     <div class="mb-3">
                                         <label for="usuarioLogin" class="form-label">Usuário</label>
-                                        <input type="text" class="form-control" id="usuarioLogin" name="usuarioLogin" required>
+                                        <input type="text" class="form-control" id="usuarioLogin" name="usuarioLogin" required  placeholder="Username">
                                     </div>
                                     <div class="mb-3">
                                         <label for="senhaLogin" class="form-label">Senha</label>
-                                        <input type="password" class="form-control" id="senhaLogin" name="senhaLogin" required>
+                                        <input type="password" class="form-control" id="senhaLogin" name="senhaLogin" required  placeholder="Password">
                                     </div>
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-primary">Entrar</button>
@@ -50,26 +53,27 @@
                                 <form id="formularioCadastro">
                                     <div class="mb-3">
                                         <label for="usuarioCadastro" class="form-label">Usuário</label>
-                                        <input type="text" class="form-control" id="usuarioCadastro" name="usuarioCadastro" required>
+                                        <input type="text" class="form-control" id="usuarioCadastro" name="usuarioCadastro" required placeholder="Username">
                                     </div>
                                     <div class="mb-3">
                                         <label for="emailCadastro" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="emailCadastro" name="emailCadastro" required>
+                                        <input type="email" class="form-control" id="emailCadastro" name="emailCadastro" required placeholder="Email">
                                     </div>
                                     <div class="mb-3">
                                         <label for="senhaCadastro" class="form-label">Senha</label>
-                                        <input type="password" class="form-control" id="senhaCadastro" name="senhaCadastro" required>
+                                        <input type="password" class="form-control" id="senhaCadastro" name="senhaCadastro" required placeholder="Password">
                                     </div>
                                     <div class="mb-3">
                                         <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
-                                        <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha" required>
+                                        <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha" required placeholder="Confirm password
+                                        ">
                                     </div>
                                     <div class="d-grid">
                                         <button id="cadastrarBtn" type="submit" class="btn btn-primary">Cadastrar</button>
                                     </div>
                                 </form>
                                 <p class="text-center mt-3">
-                                    <a href="#" data-bs-toggle="tab" data-bs-target="#login" aria-controls="login" aria-selected="true">Já tem uma conta? Faça login</a>
+                                    <a href="login.html" data-bs-toggle="tab" data-bs-target="#login" aria-controls="login" aria-selected="true">Já tem uma conta? Faça login</a>
                                 </p>
                             </div>
                         </div>
